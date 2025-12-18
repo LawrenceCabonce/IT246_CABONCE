@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>My Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Simple Navigation -->
+<div class="main-header">
+    <h2>
+        <a href="#home">Home</a>
+        <a href="#about">About Me</a>
+        <button id="themeBtn" type="button">Switch to Dark Mode</button>
+    </h2>
+</div>
+
+<hr>
+
+<section id="main-content">
+    <!-- LEFT COLUMN -->
+    <div class="left-column">
+        <img id="profileImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkC8bjZOpcXWOtOhM6IC3y5fsugwvTVfkLBw&s" alt="Profile-Image"><br><br>
+
+        <h2 id="nameHeading">Lawrence Carlylle A. Cabonce</h2>
+        <p> BSIT-MI IT246 </p>
+
+        <p>
+            <strong id="jobTitle">Web Developer & Video Editor</strong>
+            <button id="editJobBtn" class="small-btn" type="button">Edit Job Title</button>
+        </p>
+
+        <hr>
+
+        <div>
+            <h3>
+                Skills
+                <button id="toggleSkillsBtn" class="small-btn" type="button">Hide Skills</button>
+            </h3>
+
+            <div id="skillsSection">
+                <dl><strong>Coding Languages</strong></dl>
+                <dd>JAVA</dd>
+                <dd>Python</dd>
+
+                <hr>
+
+                <dl><strong>Frontend</strong></dl>
+                <dd>HTML</dd>
+                <dd>CSS</dd>
+                <dd>JavaScript</dd>
+
+                <hr>
+
+                <dl><strong>Video Editing Softwares</strong></dl>
+                <dd>Adobe Premiere</dd>
+                <dd>Capcut</dd>
+                <dd>DaVinci Resolve</dd>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-column">
+
+        <h2 id="about">About Me</h2>
+
+        <p> I am currently a 2nd year college student studying
+            Bachelor of Science in Information Technology or BSIT in NU
+            Fairview. Due to having an entrepreneurial mindset, I am currently
+            a freelance video editor proficient in applications like Capcut,
+            Adobe Premiere, and DaVinci Resolve. I am confident with my
+            skills but still open to improvements and will take any chance to
+            improve, especially when it comes to Web Development, wherein
+            I'm a complete novice at the moment.</p>
+
+        <hr>
+
+        <div id="quoteArea">
+            <h3>Motivational Quote</h3>
+            <p id="quoteText">"Click the button to get a new quote."</p>
+            <button id="newQuoteBtn" class="small-btn" type="button">New Quote</button>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>REFERENCES</h2>
+            <p>Chris P. Bacon (Past client) - email: CrisPBacon@Gmail.com</p>
+            <p>Sini G. Ang (Instructor) - email: SiniGAngSarapSarap@gmail.com</p>
+            <p>Paksiw N. Pata (Friend/Co-worker) - email: PataOnTop@gmail.com</p>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>Message Me</h2>
+            <form id="contactForm" action="submit" method="post" onsubmit="return validateForm();">
+                <p>
+                    Name:<br><input type="text" name="name" id="nameField">
+                </p>
+
+                <p>
+                    Email:<br><input type="email" name="email" id="emailField">
+                </p>
+
+                <p>
+                    Message:<br>
+                    <textarea id="msgBox" name="message" maxlength="200" rows="5" placeholder="Your message..."></textarea>
+                    <p>Characters left: <span id="counter">200</span></p>
+                </p>
+
+                <p>
+                    <input type="submit" value="Send">
+                </p>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<hr>
+
+<!-- FOOTER -->
+<div class="bottom-part">
+    <p><center><strong>WebProg - Web Programming 2025</strong></center></p>
+    <p id="dateDisplay" style="text-align:center; margin:6px 0;"></p>
+</div>
+
+<script>
+const themeBtn = document.getElementById('themeBtn');
+function updateThemeButton() {
+    const dark = document.body.classList.contains('dark-mode');
+    themeBtn.textContent = dark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+}
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    updateThemeButton();
+});
+updateThemeButton();
+
+const editJobBtn = document.getElementById('editJobBtn');
+const jobTitleEl = document.getElementById('jobTitle');
+editJobBtn.addEventListener('click', () => {
+    const newTitle = prompt('Enter new job title:', jobTitleEl.textContent);
+    if (newTitle !== null) {
+        const trimmed = newTitle.trim();
+        if (trimmed) jobTitleEl.textContent = trimmed;
+    }
+});
+
+const toggleSkillsBtn = document.getElementById('toggleSkillsBtn');
+const skillsSection = document.getElementById('skillsSection');
+toggleSkillsBtn.addEventListener('click', () => {
+    skillsSection.classList.toggle('hidden');
+    const hidden = skillsSection.classList.contains('hidden');
+    toggleSkillsBtn.textContent = hidden ? 'Show Skills' : 'Hide Skills';
+});
+
+const msgBox = document.getElementById('msgBox');
+const counter = document.getElementById('counter');
+msgBox.addEventListener('input', () => {
+    const remaining = msgBox.maxLength - msgBox.value.length;
+    counter.textContent = remaining;
+});
+
+function validateForm() {
+    const name = document.getElementById('nameField').value.trim();
+    const email = document.getElementById('emailField').value.trim();
+    if (!name) {
+        alert('Please enter your name.');
+        return false;
+    }
+    if (!email) {
+        alert('Please enter your email.');
+        return false;
+    }
+    return true; // allow submission
+}
+
+const dateDisplay = document.getElementById('dateDisplay');
+const today = new Date();
+dateDisplay.textContent = today.toLocaleDateString(undefined, { year:'numeric', month:'long', day:'numeric' });
+
+const quotes = [
+    "Do something today that your future self will thank you for.",
+    "Hard work beats talent when talent doesn't work hard.",
+    "Small steps every day lead to big changes.",
+    "Stay curious. Keep learning.",
+    "Progress over perfection."
+];
+const quoteText = document.getElementById('quoteText');
+const newQuoteBtn = document.getElementById('newQuoteBtn');
+newQuoteBtn.addEventListener('click', () => {
+    const q = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteText.textContent = q;
+});
+
+skillsSection.classList.remove('hidden');
+</script>
+
+</body>
+</html>
